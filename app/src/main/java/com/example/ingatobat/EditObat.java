@@ -19,6 +19,7 @@ public class EditObat extends AppCompatActivity {
 
         ImageButton back = findViewById(R.id.back);
         Button btnEditObat = findViewById(R.id.btn_edit_obat);
+        //UHUYY
 
         // Menambahkan listener onClick ke ImageButton ic_back
         back.setOnClickListener(new View.OnClickListener() {

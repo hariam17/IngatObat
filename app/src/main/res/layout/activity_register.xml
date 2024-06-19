@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="22dp"
+    tools:context=".Register">
+
+    <!-- TextView Register -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Register"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <!-- TextView dan TextInputLayout untuk NIP -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="NIP"
+        android:textColor="@color/teksHitam"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:hint="Silahkan masukan NIP anda"
+        android:padding="8dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/edit_text_border"/>
+
+    <!-- TextView dan TextInputLayout untuk Nama -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Nama"
+        android:textColor="@color/teksHitam"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:hint="Silahkan masukan nama anda"
+        android:padding="8dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/edit_text_border"/>
+
+    <!-- TextView dan TextInputLayout untuk Nomor Telepon -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Nomor Telepon"
+        android:textColor="@color/teksHitam"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:hint="Silahkan masukan nomor telepon anda"
+        android:padding="8dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/edit_text_border"/>
+
+    <!-- TextView dan TextInputLayout untuk Posisi -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Posisi"
+        android:textColor="@color/teksHitam"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:hint="Silahkan masukan posisi anda"
+        android:padding="8dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/edit_text_border"/>
+
+    <!-- TextView dan TextInputLayout untuk Password -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Password"
+        android:textColor="@color/teksHitam"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:hint="Silahkan masukan password anda"
+        android:inputType="textPassword"
+        android:padding="8dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/edit_text_border"/>
+
+    <!-- Button Register -->
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:background="@drawable/rounded_button"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:onClick="goToLoginPage"
+        android:layout_marginBottom="30dp"/>
+
+</LinearLayout>

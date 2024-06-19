@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="green">#006D77</color>
+    <color name="teks">#D9D9D9</color>
+    <color name="teksHitam">#585858</color>
+    <color name="teksMerah">#F11E1E</color>
+</resources>

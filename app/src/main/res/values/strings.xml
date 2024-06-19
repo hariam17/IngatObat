@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Ingat Obat</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name">Agung Krissanto</string>
+    <string name="usia">56 Tahun</string>
+    <string name="jk">Laki - laki</string>
+    <string name="penyakit">Skizofrenia</string>
+    <string name="namaObat">Abacavir</string>
+    <string name="dosisObat">25ml</string>
+    <string name="descObat">Abakavir merupakan obat antiretroviral yang digunakan untuk mencegah dan mengobati HIV/AIDS.</string>
+</resources>

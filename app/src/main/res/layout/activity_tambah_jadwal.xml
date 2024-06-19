@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="22dp"
+    tools:context=".TambahJadwal">
+
+    <!-- Top Navigasi-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp">
+
+        <TextView
+            android:id="@+id/Tambah"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Tambah Pasien"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:padding="0dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_back"
+            android:background="?selectableItemBackgroundBorderless"
+            android:layout_marginRight="85dp" >
+        </ImageButton>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Pilih Pasien"
+        android:textColor="@color/teksHitam"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/pasienSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:minHeight="48dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/edit_text_border" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Pilih Obat"
+        android:textColor="@color/teksHitam"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/obatSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:minHeight="48dp"
+        android:padding="8dp"
+        android:background="@drawable/edit_text_border"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Jumlah Pemakaian"
+        android:textColor="@color/teksHitam"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Button Group Jumlah Pemakaian -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp">
+
+        <Button
+            android:id="@+id/jp1"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/edit_text_border"
+            android:text="1x Sehari"
+            android:textColor="@color/teksHitam" />
+
+        <Button
+            android:id="@+id/jp2"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/edit_text_border"
+            android:backgroundTint="@color/green"
+            android:text="2x Sehari"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/jp3"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/edit_text_border"
+            android:text="3x Sehari"
+            android:textColor="@color/teksHitam" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Waktu Pengingat"
+        android:textColor="@color/teksHitam"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Button Group Waktu Pengingat -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp" >
+
+        <Button
+            android:id="@+id/wp1"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/edit_text_border"
+            android:text="10.00"
+            android:textColor="@color/teksHitam" />
+
+        <Button
+            android:id="@+id/wp2"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/edit_text_border"
+            android:backgroundTint="@color/green"
+            android:text="14.00"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/wp3"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:text="20.00"
+            android:textColor="@color/teksHitam"
+            android:background="@drawable/edit_text_border"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/submitTJ"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tambah Jadwal"
+        android:background="@drawable/rounded_button"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textAllCaps="false" />
+</LinearLayout>

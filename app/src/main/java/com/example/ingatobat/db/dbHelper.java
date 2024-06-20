@@ -14,7 +14,7 @@ import java.util.List;
 public class dbHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "IngatObatNew.db";
     private static final int DATABASE_VERSION = 2; // Increment the version to force onUpgrade
-
+//woi
     // Tabel users
     public static final String TABLE_USERS = "users";
     public static final String COLUMN_USER_ID = "id";

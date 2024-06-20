@@ -39,11 +39,12 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:hint="Silahkan masukan NIP anda"
-        android:padding="8dp"
         android:layout_marginBottom="15dp"
-        android:background="@drawable/edit_text_border"/>
+        android:background="@drawable/edit_text_border"
+        android:hint="Silahkan masukan NIP anda"
+        android:minHeight="48dp"
+        android:padding="8dp"
+        android:textSize="15sp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -57,12 +58,13 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/edit_text_border"
         android:hint="Masukkan password"
         android:inputType="textPassword"
+        android:minHeight="48dp"
         android:padding="8dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/edit_text_border"/>
+        android:textSize="15sp" />
 
     <Button
         android:id="@+id/btn_login"

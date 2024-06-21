@@ -6,8 +6,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import com.example.ingatobat.model.Jadwal;
+import com.example.ingatobat.model.Obat;
 import com.example.ingatobat.model.Pasien;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,6 +101,7 @@ public class dbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
     //OPERASI CRUD
     // Create: Menambahkan pasien baru
     public void addPasien(Pasien pasien) {
@@ -163,6 +169,19 @@ public class dbHelper extends SQLiteOpenHelper {
         return pasienList;
     }
 
+    public List<String> getAllPasienNames() {
+        List<String> pasienNames = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT nama_pasien FROM pasien", null);
+        if (cursor.moveToFirst()) {
+            do {
+                pasienNames.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return pasienNames;
+    }
 
     // Update: Memperbarui data pasien
     public int updatePasien(Pasien pasien) {
@@ -179,8 +198,76 @@ public class dbHelper extends SQLiteOpenHelper {
     // Delete: Menghapus data pasien
     public void deletePasien(Pasien pasien) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_PASIEN, COLUMN_PASIEN_ID + " = ?",
-                new String[]{String.valueOf(pasien.getId())});
+        try {
+            int rowsDeleted = db.delete(TABLE_PASIEN, COLUMN_PASIEN_ID + " = ?", new String[]{String.valueOf(pasien.getId())});
+            if (rowsDeleted > 0) {
+                Log.d("dbHelper", "Pasien dengan ID " + pasien.getId() + " berhasil dihapus.");
+            } else {
+                Log.d("dbHelper", "Pasien dengan ID " + pasien.getId() + " tidak ditemukan.");
+            }
+        } catch (Exception e) {
+            Log.e("dbHelper", "Error deleting pasien", e);
+        } finally {
+            db.close();
+        }
+    }
+
+    //Add : Menambah data jadwal
+    public boolean addJadwal(int pasienId, int obatId, int jumlahPemakaian, String waktuPemakaian) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_JADWAL_PASIEN_ID, pasienId);
+        values.put(COLUMN_JADWAL_OBAT_ID, obatId);
+        values.put(COLUMN_JADWAL_JUMLAH_PEMAKAIAN, jumlahPemakaian);
+        values.put(COLUMN_JADWAL_WAKTU_PEMAKAIAN, waktuPemakaian);
+
+        long result = db.insert(TABLE_JADWAL, null, values);
         db.close();
+        return result != -1;
+    }
+
+    //Mengambil semua data jadwal
+    @SuppressLint("Range")
+    public List<Jadwal> getAllJadwal() {
+        List<Jadwal> jadwalList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + TABLE_JADWAL;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Jadwal jadwal = new Jadwal();
+                jadwal.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_JADWAL_ID)));
+                jadwal.setPasienId(cursor.getInt(cursor.getColumnIndex(COLUMN_JADWAL_PASIEN_ID)));
+                jadwal.setObatId(cursor.getInt(cursor.getColumnIndex(COLUMN_JADWAL_OBAT_ID)));
+                jadwal.setJumlahPemakaian(cursor.getInt(cursor.getColumnIndex(COLUMN_JADWAL_JUMLAH_PEMAKAIAN)));
+                jadwal.setWaktuPemakaian(Time.valueOf(cursor.getString(cursor.getColumnIndex(COLUMN_JADWAL_WAKTU_PEMAKAIAN))));
+                jadwalList.add(jadwal);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return jadwalList;
+    }
+
+    //UPDATE : Edit jadwal
+    public boolean updateJadwal(int id, int pasienId, int obatId, int jumlahPemakaian, String waktuPemakaian) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_JADWAL_PASIEN_ID, pasienId);
+        values.put(COLUMN_JADWAL_OBAT_ID, obatId);
+        values.put(COLUMN_JADWAL_JUMLAH_PEMAKAIAN, jumlahPemakaian);
+        values.put(COLUMN_JADWAL_WAKTU_PEMAKAIAN, waktuPemakaian);
+
+        int result = db.update(TABLE_JADWAL, values, COLUMN_JADWAL_ID + " = ?", new String[]{String.valueOf(id)});
+        db.close();
+        return result > 0;
+    }
+
+    public boolean deleteJadwal(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int result = db.delete(TABLE_JADWAL, COLUMN_JADWAL_ID + " = ?", new String[]{String.valueOf(id)});
+        db.close();
+        return result > 0;
     }
 }

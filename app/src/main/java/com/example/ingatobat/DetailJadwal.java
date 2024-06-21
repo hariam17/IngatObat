@@ -10,6 +10,8 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.example.ingatobat.db.dbHelper;
+
 public class DetailJadwal extends AppCompatActivity {
 
     private ImageButton buttonSettings;
@@ -53,6 +55,8 @@ public class DetailJadwal extends AppCompatActivity {
                 if (item.getItemId() == R.id.menu_edit) {
                     // Memulai EditActivity ketika opsi edit dipilih
                     Intent intent = new Intent(DetailJadwal.this, EditJadwal.class);
+                    int jadwalId = getIntent().getIntExtra("JADWAL_ID", -1);
+                    intent.putExtra("JADWAL_ID", jadwalId);
                     startActivity(intent);
                     return true;
                 } else if (item.getItemId() == R.id.menu_delete) {
@@ -70,7 +74,14 @@ public class DetailJadwal extends AppCompatActivity {
     }
 
     private void deleteData() {
-        // Implementasi fungsi untuk menghapus data
-        Toast.makeText(this, "Delete data", Toast.LENGTH_SHORT).show();
+        int jadwalId = getIntent().getIntExtra("JADWAL_ID", -1);
+        dbHelper db = new dbHelper(this);
+        boolean isDeleted = db.deleteJadwal(jadwalId);
+        if (isDeleted) {
+            Toast.makeText(this, "Jadwal berhasil dihapus", Toast.LENGTH_SHORT).show();
+            finish(); // Kembali ke halaman sebelumnya
+        } else {
+            Toast.makeText(this, "Gagal menghapus jadwal", Toast.LENGTH_SHORT).show();
+        }
     }
 }

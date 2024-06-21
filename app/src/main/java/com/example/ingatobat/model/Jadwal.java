@@ -9,7 +9,7 @@ public class Jadwal {
     private int jumlahPemakaian;
     private Time waktuPemakaian;
 
-    public Jadwal(int id, int pasienId, int obatId, int jumlahPemakaian, Time waktuPemakaian) {
+    public Jadwal() {
         this.id = id;
         this.pasienId = pasienId;
         this.obatId = obatId;

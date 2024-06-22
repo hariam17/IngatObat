@@ -1,6 +1,9 @@
 package com.example.ingatobat.model;
 
-public class Users {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Users implements Parcelable {
     private int id;
     private String namaPegawai;
     private String nip;
@@ -16,6 +19,27 @@ public class Users {
         this.noTelp = noTelp;
         this.role = role;
     }
+
+    protected Users(Parcel in) {
+        id = in.readInt();
+        namaPegawai = in.readString();
+        nip = in.readString();
+        password = in.readString();
+        noTelp = in.readString();
+        role = in.readString();
+    }
+
+    public static final Creator<Users> CREATOR = new Creator<Users>() {
+        @Override
+        public Users createFromParcel(Parcel in) {
+            return new Users(in);
+        }
+
+        @Override
+        public Users[] newArray(int size) {
+            return new Users[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -41,28 +65,20 @@ public class Users {
         return role;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(namaPegawai);
+        dest.writeString(nip);
+        dest.writeString(password);
+        dest.writeString(noTelp);
+        dest.writeString(role);
     }
 
-    public void setNamaPegawai(String namaPegawai) {
-        this.namaPegawai = namaPegawai;
-    }
-
-    public void setNip(String nip) {
-        this.nip = nip;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setNoTelp(String noTelp) {
-        this.noTelp = noTelp;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 }
+
 

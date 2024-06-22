@@ -17,7 +17,7 @@
             android:id="@+id/welcomeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hi, Admin Welcome Back"
+            android:text="Hi, Hari Agung Merdeka"
             android:textColor="@color/teksHitam"
             android:textSize="18sp"
             android:layout_marginTop="10dp"
@@ -35,74 +35,20 @@
             android:background="?selectableItemBackgroundBorderless" />
     </RelativeLayout>
 
-    <!-- Search Bar -->
-    <EditText
-        android:id="@+id/searchEditText"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/headerLayout"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/search_border"
-        android:drawableEnd="@drawable/search_small"
-        android:drawableTint="@color/black"
-        android:hint="Ketik disini..."
-        android:minHeight="40dp" />
-
-    <!-- Button Section -->
-    <LinearLayout
-        android:id="@+id/buttonLayout"
+    <ImageView
+        android:id="@+id/bannerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/searchEditText"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="17dp"
-        android:layout_marginTop="15dp">
-
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="97dp"
-            android:layout_height="47dp"
-            android:text="kemarin"
-            android:textColor="@color/white"
-            android:layout_weight="1"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/teks"
-            style="?android:attr/buttonBarButtonStyle"
-            android:background="@drawable/edit_text_border"/>
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="97dp"
-            android:layout_height="47dp"
-            android:text="hari ini"
-            android:textColor="@color/white"
-            android:layout_weight="1"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/green"
-            style="?android:attr/buttonBarButtonStyle"
-            android:background="@drawable/edit_text_border"/>
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="97dp"
-            android:layout_height="47dp"
-            android:text="akan datang"
-            android:textColor="@color/white"
-            android:layout_weight="1"
-            android:backgroundTint="@color/teks"
-            style="?android:attr/buttonBarButtonStyle"
-            android:background="@drawable/edit_text_border"/>
-
-    </LinearLayout>
+        android:src="@drawable/ic_banner"
+        android:layout_below="@id/headerLayout"
+        />
 
     <!-- Content Section -->
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonLayout"
+        android:layout_below="@id/bannerView"
         android:layout_above="@id/bottomNavigation">
 
         <LinearLayout

@@ -1,29 +1,49 @@
 package com.example.ingatobat;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
+import com.example.ingatobat.db.dbHelper;
+import com.example.ingatobat.model.Users;
 
 public class Profile extends AppCompatActivity {
+
+    private TextView tvNamaLengkap, tvRoleUser, tvNip, tvNoTelepon;
+    private dbHelper dbHelper;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        ImageButton back = findViewById(R.id.back);
+        dbHelper = new dbHelper(this);
+        sessionManager = SessionManager.getInstance(this);
 
-        // Menambahkan listener onClick ke ImageButton back
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Menjalankan aktivitas MainActivity ketika ImageButton back diklik
-                Intent intent = new Intent(Profile.this, HalamanJadwal.class);
-                startActivity(intent);
-            }
+        tvNamaLengkap = findViewById(R.id.tvNamaPegawai);
+        tvRoleUser = findViewById(R.id.tvRoleUser);
+        tvNip = findViewById(R.id.tvNip);
+        tvNoTelepon = findViewById(R.id.tvNoTelepon);
+
+        // Retrieve user data from SQLite using DbHelper
+        Users user = sessionManager.getUser();
+
+        if (user != null) {
+            // Display user data
+            tvNamaLengkap.setText(user.getNamaPegawai());
+            tvRoleUser.setText(user.getRole());
+            tvNip.setText(user.getNip());
+            tvNoTelepon.setText(user.getNoTelp());
+        }
+
+        ImageButton back = findViewById(R.id.back);
+        back.setOnClickListener(v -> {
+            Intent intent = new Intent(Profile.this, HalamanJadwal.class);
+            startActivity(intent);
         });
 
         // Temukan ImageButton Jadwal
@@ -50,17 +70,6 @@ public class Profile extends AppCompatActivity {
                 Intent intent = new Intent(Profile.this, HalamanObat.class);
                 startActivity(intent);
             }
-        });
-
-        // Temukan ImageButton Add
-        ImageButton homeIcon3 = findViewById(R.id.homeIcon3);
-
-        // Tambahkan listener klik
-        homeIcon3.setOnClickListener(v -> {
-            // Buat Intent untuk memulai Activity TambahJadwal
-            Intent intent = new Intent(Profile.this, TambahPasien.class);
-            // Mulai Activity
-            startActivity(intent);
         });
 
         // Temukan ImageButton Pasien
@@ -90,9 +99,11 @@ public class Profile extends AppCompatActivity {
         });
     }
 
-    // Metode untuk pindah ke halaman login saat tombol diklik
+
+
     public void goToLoginPage(View view) {
         Intent intent = new Intent(this, Login.class);
         startActivity(intent);
     }
 }
+

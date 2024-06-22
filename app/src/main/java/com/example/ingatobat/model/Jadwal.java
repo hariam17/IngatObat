@@ -1,13 +1,14 @@
 package com.example.ingatobat.model;
 
 import java.sql.Time;
+import java.time.LocalTime;
 
 public class Jadwal {
     private int id;
     private int pasienId;
     private int obatId;
     private int jumlahPemakaian;
-    private Time waktuPemakaian;
+    private LocalTime waktuPemakaian;
 
     public Jadwal() {
         this.id = id;
@@ -33,7 +34,7 @@ public class Jadwal {
         return jumlahPemakaian;
     }
 
-    public Time getWaktuPemakaian() {
+    public LocalTime getWaktuPemakaian() {
         return waktuPemakaian;
     }
 
@@ -53,7 +54,7 @@ public class Jadwal {
         this.jumlahPemakaian = jumlahPemakaian;
     }
 
-    public void setWaktuPemakaian(Time waktuPemakaian) {
+    public void setWaktuPemakaian(LocalTime waktuPemakaian) {
         this.waktuPemakaian = waktuPemakaian;
     }
 }

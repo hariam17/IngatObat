@@ -11,13 +11,14 @@ import android.util.Log;
 import com.example.ingatobat.model.Jadwal;
 import com.example.ingatobat.model.Obat;
 import com.example.ingatobat.model.Pasien;
+import com.example.ingatobat.model.Users;
 
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 public class dbHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "IngatObatNew.db";
+    private static final String DATABASE_NAME = "IngatObatNewest.db";
     private static final int DATABASE_VERSION = 2; // Increment the version to force onUpgrade
 
     // Tabel users
@@ -91,7 +92,7 @@ public class dbHelper extends SQLiteOpenHelper {
                 + COLUMN_JADWAL_PASIEN_ID + " INTEGER, "
                 + COLUMN_JADWAL_OBAT_ID + " INTEGER, "
                 + COLUMN_JADWAL_JUMLAH_PEMAKAIAN + " INTEGER, "
-                + COLUMN_JADWAL_WAKTU_PEMAKAIAN + " TIME, "
+                + COLUMN_JADWAL_WAKTU_PEMAKAIAN + " TEXT, "
                 + "FOREIGN KEY(" + COLUMN_JADWAL_PASIEN_ID + ") REFERENCES " + TABLE_PASIEN + "(" + COLUMN_PASIEN_ID + "), "
                 + "FOREIGN KEY(" + COLUMN_JADWAL_OBAT_ID + ") REFERENCES " + TABLE_OBAT + "(" + COLUMN_OBAT_ID + "))";
         db.execSQL(CREATE_JADWAL_TABLE);
@@ -213,61 +214,51 @@ public class dbHelper extends SQLiteOpenHelper {
     }
 
     //Add : Menambah data jadwal
-    public boolean addJadwal(int pasienId, int obatId, int jumlahPemakaian, String waktuPemakaian) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_JADWAL_PASIEN_ID, pasienId);
-        values.put(COLUMN_JADWAL_OBAT_ID, obatId);
-        values.put(COLUMN_JADWAL_JUMLAH_PEMAKAIAN, jumlahPemakaian);
-        values.put(COLUMN_JADWAL_WAKTU_PEMAKAIAN, waktuPemakaian);
 
-        long result = db.insert(TABLE_JADWAL, null, values);
-        db.close();
-        return result != -1;
-    }
 
-    //Mengambil semua data jadwal
-    @SuppressLint("Range")
-    public List<Jadwal> getAllJadwal() {
-        List<Jadwal> jadwalList = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + TABLE_JADWAL;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+    // User
+    // Create Users
+    public void addUser(Users user) {
+        SQLiteDatabase db = null;
+        try {
+            db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_USER_NAMA_PEGAWAI, user.getNamaPegawai());
+            values.put(COLUMN_USER_NIP, user.getNip());
+            values.put(COLUMN_USER_PASSWORD, user.getPassword()); // Sebaiknya gunakan metode hashing
+            values.put(COLUMN_USER_NO_TELP, user.getNoTelp());
+            values.put(COLUMN_USER_ROLE, user.getRole());
 
-        if (cursor.moveToFirst()) {
-            do {
-                Jadwal jadwal = new Jadwal();
-                jadwal.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_JADWAL_ID)));
-                jadwal.setPasienId(cursor.getInt(cursor.getColumnIndex(COLUMN_JADWAL_PASIEN_ID)));
-                jadwal.setObatId(cursor.getInt(cursor.getColumnIndex(COLUMN_JADWAL_OBAT_ID)));
-                jadwal.setJumlahPemakaian(cursor.getInt(cursor.getColumnIndex(COLUMN_JADWAL_JUMLAH_PEMAKAIAN)));
-                jadwal.setWaktuPemakaian(Time.valueOf(cursor.getString(cursor.getColumnIndex(COLUMN_JADWAL_WAKTU_PEMAKAIAN))));
-                jadwalList.add(jadwal);
-            } while (cursor.moveToNext());
+            db.insert(TABLE_USERS, null, values);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (db != null && db.isOpen()) {
+                db.close();
+            }
         }
-        cursor.close();
-        db.close();
-        return jadwalList;
     }
 
-    //UPDATE : Edit jadwal
-    public boolean updateJadwal(int id, int pasienId, int obatId, int jumlahPemakaian, String waktuPemakaian) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_JADWAL_PASIEN_ID, pasienId);
-        values.put(COLUMN_JADWAL_OBAT_ID, obatId);
-        values.put(COLUMN_JADWAL_JUMLAH_PEMAKAIAN, jumlahPemakaian);
-        values.put(COLUMN_JADWAL_WAKTU_PEMAKAIAN, waktuPemakaian);
+    //Read
+    @SuppressLint("Range")
+    // Verifikasi pengguna berdasarkan NIP dan password
+    public Users getUser(String nip, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_USERS,
+                new String[]{COLUMN_USER_ID, COLUMN_USER_NAMA_PEGAWAI, COLUMN_USER_NIP, COLUMN_USER_PASSWORD, COLUMN_USER_NO_TELP, COLUMN_USER_ROLE},
+                COLUMN_USER_NIP + "=? AND " + COLUMN_USER_PASSWORD + "=?",
+                new String[]{nip, password},
+                null, null, null);
 
-        int result = db.update(TABLE_JADWAL, values, COLUMN_JADWAL_ID + " = ?", new String[]{String.valueOf(id)});
-        db.close();
-        return result > 0;
-    }
-
-    public boolean deleteJadwal(int id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        int result = db.delete(TABLE_JADWAL, COLUMN_JADWAL_ID + " = ?", new String[]{String.valueOf(id)});
-        db.close();
-        return result > 0;
+        if (cursor != null && cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_USER_ID));
+            String namaPegawai = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_NAMA_PEGAWAI));
+            String noTelp = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_NO_TELP));
+            String role = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_ROLE));
+            cursor.close();
+            return new Users(id, namaPegawai, nip, password, noTelp, role);
+        } else {
+            return null;
+        }
     }
 }

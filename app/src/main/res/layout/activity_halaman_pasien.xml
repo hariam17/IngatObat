@@ -39,15 +39,15 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/navbar">
+        android:layout_below="@id/navbar"
+        android:padding="16dp">
         <!-- Content -->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewPasien"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/navbar"
-                />
+                android:layout_height="wrap_content"
+                android:layout_below="@id/navbar" />
 
     </ScrollView>
 
